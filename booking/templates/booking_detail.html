@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+  <h2>Booking Detail</h2>
+  <p><strong>ID:</strong> {{ booking.id }}</p>
+  <p><strong>Type:</strong> {{ booking.get_reservation_type_display }}</p>
+  <p><strong>Date:</strong> {{ booking.reservation_date|date:"Y-m-d H:i" }}</p>
+  <p><strong>Payment Status:</strong> {{ booking.get_payment_status_display }}</p>
+
+  {% if booking.room %}
+    <p><strong>Hotel:</strong> {{ booking.room.hotel.name }}</p>
+    <p><strong>Room:</strong> {{ booking.room.room_number }}</p>
+  {% endif %}
+
+  {% if booking.flight %}
+    <p><strong>Flight:</strong> {{ booking.flight.flight_number }}</p>
+    <p><strong>From:</strong> {{ booking.flight.origin }} to {{ booking.flight.destination }}</p>
+  {% endif %}
+
+  {% if booking.seat_number %}
+    <p><strong>Seat Number:</strong> {{ booking.seat_number }}</p>
+  {% endif %}
+</div>
+{% endblock %}

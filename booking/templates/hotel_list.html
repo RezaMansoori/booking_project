@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Hotels{% endblock %}
+
+{% block content %}
+<div class="my-5">
+  <h2 class="text-center mb-4">Hotel List</h2>
+
+  <div class="row justify-content-center">
+    {% for hotel in hotels %}
+      <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card h-100 shadow-sm rounded-4">
+          <div class="card-body">
+            <h5 class="card-title">{{ hotel.name }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{ hotel.location_city }}</h6>
+            <p class="card-text">
+              {% if hotel.min_price %}
+                Starting from <strong>${{ hotel.min_price }}</strong> per night
+              {% else %}
+                <em>No rooms available</em>
+              {% endif %}
+            </p>
+            <p class="card-text"><strong>Stars:</strong> {{ hotel.star_rating }}</p>
+            <a href="{% url 'reserve_item' 'room' room.id %}" class="btn btn-primary btn-sm">Book Now</a>
+          </div>
+        </div>
+      </div>
+    {% empty %}
+      <p class="text-muted text-center">No hotels available.</p>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

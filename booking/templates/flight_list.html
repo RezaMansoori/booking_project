@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Flights{% endblock %}
+
+{% block content %}
+<div class="my-4">
+  <h2 class="text-center mb-4">Flight List</h2>
+
+  <div class="row justify-content-center">
+    {% for flight in flights %}
+      <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card h-100 shadow-sm rounded-4">
+          <div class="card-body">
+            <h5 class="card-title">{{ flight.airline }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{ flight.flight_number }}</h6>
+            <p class="card-text">{{ flight.origin }} - {{ flight.destination }}</p>
+            <p class="card-text">departure time :{{ flight.departure_time|date:"Y-m-d H:i" }}</p>
+            <p class="card-text">arrival time : {{ flight.arrival_time|date:"Y-m-d H:i" }}</p>
+            <p class="card-text">Price: {{ flight.price }}</p>
+            <a href="{% url 'reserve_item' 'flight' flight.id %}" class="btn btn-primary btn-sm">Book Now</a>
+          </div>
+        </div>
+      </div>
+    {% empty %}
+      <p class="text-muted text-center">No flights available.</p>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

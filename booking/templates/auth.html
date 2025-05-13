@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login / Register</title>
+  <link rel="stylesheet" href="{% static 'assets/styles/auth.css' %}">
+</head>
+<body>
+  <div class="auth-container">
+    <div class="form-toggle">
+      <button id="show-login" class="active">Login</button>
+      <button id="show-register">Register</button>
+    </div>
+
+    <form method="POST" action="" id="login-form" class="auth-form">
+      {% csrf_token %}
+      <h2>Login</h2>
+      <input type="text" name="username" placeholder="Username" required />
+      <input type="password" name="password" placeholder="Password" required />
+      <input type="hidden" name="action" value="login">
+      <button type="submit" action="">Login</button>
+    </form>
+
+    <form method="POST" action="" id="register-form" class="auth-form hidden">
+      {% csrf_token %}
+      <h2>Register</h2>
+      <input type="text" name="username" placeholder="Username" required />
+      <input type="email" name="email" placeholder="Email" required />
+      <input type="password" name="password" placeholder="Password" required />
+      <input type="hidden" name="action" value="register">
+      <button type="submit" action="">Register</button>
+    </form>
+  </div>
+
+  <script>
+    const loginBtn = document.getElementById("show-login");
+    const registerBtn = document.getElementById("show-register");
+    const loginForm = document.getElementById("login-form");
+    const registerForm = document.getElementById("register-form");
+
+    loginBtn.onclick = () => {
+      loginForm.classList.remove("hidden");
+      registerForm.classList.add("hidden");
+      loginBtn.classList.add("active");
+      registerBtn.classList.remove("active");
+    };
+
+    registerBtn.onclick = () => {
+      loginForm.classList.add("hidden");
+      registerForm.classList.remove("hidden");
+      loginBtn.classList.remove("active");
+      registerBtn.classList.add("active");
+    };
+  </script>
+</body>
+</html>
