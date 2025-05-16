@@ -99,7 +99,7 @@
     <p>No airlines managed by you.</p>
   {% endfor %}
   {% else %}
-    <ul class="booking-list">
+    <ul class="booking-list row">
       <h4>Hotel Reservations</h4>
       {% for booking in bookings %} {% if booking.reservation_type == 'HOTEL' %}
       <div class="col-md-6 col-lg-4 my-4">

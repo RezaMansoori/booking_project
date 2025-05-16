@@ -21,7 +21,7 @@
               {% endif %}
             </p>
             <p class="card-text"><strong>Stars:</strong> {{ hotel.star_rating }}</p>
-            <a href="{% url 'reserve_item' 'room' room.id %}" class="btn btn-primary btn-sm">Book Now</a>
+            <a href="{% url 'reserve_item' 'room'  hotel.cheapest_room_id  %}" class="btn btn-primary btn-sm">Book Now</a>
           </div>
         </div>
       </div>

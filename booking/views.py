@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
-from django.db.models import Min
+from django.db.models import Min,Subquery, OuterRef
 from .models import User, Hotel, Room, Airline, Flight, Reservation, Tour
 from .forms import RoomForm, FlightForm
 
@@ -91,7 +91,11 @@ def booking_detail(request, booking_id):
 
 
 def hotel_list(request):
+    cheapest_room = Room.objects.filter(hotel=OuterRef('pk')).order_by('price_per_night')
     hotels = Hotel.objects.annotate(min_price=Min("rooms__price_per_night"))
+    hotels = hotels.annotate(
+        cheapest_room_id=Subquery(cheapest_room.values('id')[:1])
+    )
     user_role = None
     if request.session.get("username"):
         user = User.objects.get(username=request.session["username"])
